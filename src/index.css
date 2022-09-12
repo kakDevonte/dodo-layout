@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  font-family: "Dodo Rounded";
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #F5F2F2;;
+  //-webkit-border-radius: 50px;
+  //border-radius: 50px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #FF6900;
+}
+::-webkit-scrollbar-thumb:window-inactive {
+}
