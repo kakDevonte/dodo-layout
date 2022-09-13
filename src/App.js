@@ -12,25 +12,25 @@ const cityArray = [
 
 function App() {
   return (
-    <div className="root dark">
-      <div className="search dark">
+    <div className="root white">
+      <div className="search white">
         <img src={logo} />
         <h1>Выберите ваш город:</h1>
-        <div className="inputSearch dark">
+        <div className="inputSearch white">
           <input
-            className="textFieldInput dark"
+            className="textFieldInput white"
             type="text"
             placeholder="Поиск..."
           />
         </div>
-        <div className="city-container dark">
+        <div className="city-container white">
           <h2>Москва</h2>
           <h2>Санкт-Питербург</h2>
         </div>
       </div>
-      <div className="cities dark">
+      <div className="cities white">
           { cityArray.map((item) =>
-            <div className="item dark">
+            <div className="item white">
             <h2>{item.letter}</h2>
               {item.cities.map((city) =>
                 <p key={city}>{city}</p>

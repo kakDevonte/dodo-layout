@@ -137,12 +137,26 @@
 
 .textFieldInput {
 
+  &.white {
+    background-color: $input;
+    border: 2px solid $input_border;
+    color: $main;
+  }
+  &:focus {
+    color: $main_d;
+    box-shadow: none;
+  }
+
   &.dark {
     background-color: $main;
     border: 2px solid $primal;
     color: $main_d;
   }
-  &:focus {
+  &.white:focus {
+    box-shadow: none;
+    color: $main;
+  }
+  &.dark:focus {
     border-color: $primal;
     color: $main_d;
     box-shadow: none;
