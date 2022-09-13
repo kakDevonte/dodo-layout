@@ -11,6 +11,7 @@ export const Scrollbar = ({
   const scrollThumbRef = useRef(null);
   const observer = useRef(null);
   const [thumbHeight, setThumbHeight] = useState(20);
+  const [isVisible, setIsVisible] = useState(true);
   const [scrollStartPosition, setScrollStartPosition] = useState(
     null
   );
@@ -19,7 +20,14 @@ export const Scrollbar = ({
 
   function handleResize(ref, trackSize) {
     const { clientHeight, scrollHeight } = ref;
-    setThumbHeight(Math.max((clientHeight / scrollHeight) * trackSize, 20));
+    const thumbHeight = Math.max((clientHeight / scrollHeight) * trackSize, 20);
+    if( clientHeight === thumbHeight) {
+      setIsVisible(false);
+    }
+    else {
+      setIsVisible(true);
+    }
+    setThumbHeight(thumbHeight);
   }
 
   const handleTrackClick = useCallback(
@@ -108,7 +116,6 @@ export const Scrollbar = ({
     [isDragging, scrollStartPosition, thumbHeight]
   );
 
-  // If the content and the scrollbar track exist, use a ResizeObserver to adjust height of thumb and listen for scroll event to move the thumb
   useEffect(() => {
     if (contentRef.current && scrollTrackRef.current) {
       const ref = contentRef.current;
@@ -125,7 +132,6 @@ export const Scrollbar = ({
     }
   }, []);
 
-  // Listen for mouse events to handle scrolling by dragging the thumb
   useEffect(() => {
     document.addEventListener('mousemove', handleThumbMousemove);
     document.addEventListener('mouseup', handleThumbMouseup);
@@ -137,12 +143,14 @@ export const Scrollbar = ({
     };
   }, [handleThumbMousemove, handleThumbMouseup]);
 
+  console.log(thumbHeight);
+  //console.log(scrollTrackRef.current);
   return (
     <div className="custom-scrollbars__container">
       <div className="custom-scrollbars__content" ref={contentRef} {...props}>
         {children}
       </div>
-      <div className="custom-scrollbars__scrollbar">
+      <div className="custom-scrollbars__scrollbar" style={{ display: isVisible ? "" : "none"}}>
         <div className="custom-scrollbars__track-and-thumb">
           <div
             className="custom-scrollbars__track"
