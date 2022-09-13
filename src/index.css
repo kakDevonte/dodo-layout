@@ -1,10 +1,10 @@
 body {
   margin: 0;
-  font-family: "Dodo Rounded";
   height: 100%;
 }
 
 * {
+  font-family: "Dodo Rounded";
   box-sizing: border-box;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
