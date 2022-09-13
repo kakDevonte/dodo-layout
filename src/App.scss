@@ -2,13 +2,17 @@
 
 .root {
   margin: 0 auto;
-  width: 375px;
-  height: 626px;
+  width: 100%;
+  height: 100vh;
+  max-width: 1080px;
+  max-height: 1367px;
+
   padding: 10px;
   display: flex;
   flex-flow: column nowrap;
+  align-items: center;
   overflow: hidden;
-  gap: 10px;
+  gap: 25px;
 
   position: relative;
 
@@ -17,12 +21,11 @@
     pointer-events: none;
     z-index: 1;
     content: ' ';
-    height: 200px;
+    height: 25vh;
     width: 100%;
-    top: 75%;
-    left: 0;
+    bottom: 0;
     transform: rotate(180deg);
-    background: linear-gradient(180deg, #F5F2F2 0%, rgba(245, 242, 242, 0) 100%);
+    background: linear-gradient(0deg, #F5F2F2 0%, rgba(245, 242, 242, 0) 100%);
   }
   &.white:before {
     background: linear-gradient(180deg, #F5F2F2 0%, rgba(245, 242, 242, 0) 100%);
@@ -105,6 +108,9 @@
     text-decoration: underline;
     cursor: pointer;
   }
+  h2 {
+    color: $primal;
+  }
 }
 
 .inputSearch {
@@ -184,7 +190,7 @@
 }
 
 .cities {
-  width: 100%;
+  width: 85%;
   text-align: center;
   overflow-y: auto;
 }
@@ -192,16 +198,16 @@
 
 .item {
   position: relative;
-  padding-top: 10px;
-
   h2 {
     position: absolute;
-    top: 0;
-    left: 10px;
+    top: -20px;
+    //left: 10px;
     color: $primal;
   }
 
   p {
+    margin-block-start: 0;
+    margin-block-end: 0;
     margin-bottom: 25px;
   }
 
@@ -213,4 +219,5 @@
     color: $primal;
     cursor: pointer;
   }
+
 }
