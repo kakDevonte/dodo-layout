@@ -1,32 +1,20 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import './style.scss';
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import "./style.scss";
 
-export const Scrollbar = ({
-                     children,
-                     className,
-                     ...props
-                   }) => {
+const Scrollbar = ({ children, className, ...props }) => {
   const contentRef = useRef(null);
   const scrollTrackRef = useRef(null);
   const scrollThumbRef = useRef(null);
   const observer = useRef(null);
   const [thumbHeight, setThumbHeight] = useState(20);
-  const [isVisible, setIsVisible] = useState(true);
-  const [scrollStartPosition, setScrollStartPosition] = useState(
-    null
-  );
+  const [isVisible, setIsVisible] = useState(false);
+  const [scrollStartPosition, setScrollStartPosition] = useState(null);
   const [initialScrollTop, setInitialScrollTop] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
 
   function handleResize(ref, trackSize) {
     const { clientHeight, scrollHeight } = ref;
     const thumbHeight = Math.max((clientHeight / scrollHeight) * trackSize, 20);
-    if( clientHeight === thumbHeight) {
-      setIsVisible(false);
-    }
-    else {
-      setIsVisible(true);
-    }
     setThumbHeight(thumbHeight);
   }
 
@@ -49,7 +37,7 @@ export const Scrollbar = ({
         );
         contentCurrent.scrollTo({
           top: scrollAmount,
-          behavior: 'smooth',
+          behavior: "smooth",
         });
       }
     },
@@ -120,43 +108,59 @@ export const Scrollbar = ({
     if (contentRef.current && scrollTrackRef.current) {
       const ref = contentRef.current;
       const { clientHeight: trackSize } = scrollTrackRef.current;
+      const { clientHeight, scrollHeight } = ref;
+
+      const thumbHeight = Math.max(
+        (clientHeight / scrollHeight) * trackSize,
+        20
+      );
+
+      if (clientHeight <= thumbHeight) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+
       observer.current = new ResizeObserver(() => {
         handleResize(ref, trackSize);
       });
       observer.current.observe(ref);
-      ref.addEventListener('scroll', handleThumbPosition);
+      ref.addEventListener("scroll", handleThumbPosition);
       return () => {
         observer.current?.unobserve(ref);
-        ref.removeEventListener('scroll', handleThumbPosition);
+        ref.removeEventListener("scroll", handleThumbPosition);
       };
     }
-  }, []);
+  }, [children]);
 
   useEffect(() => {
-    document.addEventListener('mousemove', handleThumbMousemove);
-    document.addEventListener('mouseup', handleThumbMouseup);
-    document.addEventListener('mouseleave', handleThumbMouseup);
+    document.addEventListener("mousemove", handleThumbMousemove);
+    document.addEventListener("mouseup", handleThumbMouseup);
+    document.addEventListener("mouseleave", handleThumbMouseup);
     return () => {
-      document.removeEventListener('mousemove', handleThumbMousemove);
-      document.removeEventListener('mouseup', handleThumbMouseup);
-      document.removeEventListener('mouseleave', handleThumbMouseup);
+      document.removeEventListener("mousemove", handleThumbMousemove);
+      document.removeEventListener("mouseup", handleThumbMouseup);
+      document.removeEventListener("mouseleave", handleThumbMouseup);
     };
   }, [handleThumbMousemove, handleThumbMouseup]);
 
-  console.log(thumbHeight);
-  //console.log(scrollTrackRef.current);
   return (
     <div className="custom-scrollbars__container">
       <div className="custom-scrollbars__content" ref={contentRef} {...props}>
         {children}
       </div>
-      <div className="custom-scrollbars__scrollbar" style={{ display: isVisible ? "" : "none"}}>
-        <div className="custom-scrollbars__track-and-thumb">
+      <div className="custom-scrollbars__scrollbar">
+        <div
+          className="custom-scrollbars__track-and-thumb"
+          style={{ display: isVisible ? "" : "none" }}
+        >
           <div
             className="custom-scrollbars__track"
             ref={scrollTrackRef}
             onClick={handleTrackClick}
-            style={{ cursor: isDragging && 'grabbing' }}
+            style={{
+              cursor: isDragging && "grabbing",
+            }}
           ></div>
           <div
             className="custom-scrollbars__thumb"
@@ -164,7 +168,7 @@ export const Scrollbar = ({
             onMouseDown={handleThumbMousedown}
             style={{
               height: `${thumbHeight}px`,
-              cursor: isDragging ? 'grabbing' : 'grab',
+              cursor: isDragging ? "grabbing" : "grab",
             }}
           ></div>
         </div>

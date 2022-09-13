@@ -39,26 +39,6 @@
   &.dark {
     background: $main;
   }
-
-
-  //*::-webkit-scrollbar {
-  //  width: 5px;
-  //  height: 5px;
-  //}
-  //
-  //*.white::-webkit-scrollbar-track {
-  //  background: $second;
-  //}
-  //*.dark::-webkit-scrollbar-track {
-  //  background: $second_d;
-  //}
-  //
-  //*::-webkit-scrollbar-thumb {
-  //  -webkit-border-radius: 10px;
-  //  border-radius: 10px;
-  //  background: #FF6900;
-  //}
-
 }
 
 
@@ -71,11 +51,9 @@
     background: $second_d;
   }
 
-  flex: 0.3;
   padding: 20px;
-
   border-radius: 20px;
-  height: auto;
+  flex: 0.5 1;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -142,7 +120,6 @@
 }
 
 .textFieldInput {
-
   &.white {
     background-color: $input;
     border: 2px solid $input_border;
@@ -152,7 +129,6 @@
     color: $main_d;
     box-shadow: none;
   }
-
   &.dark {
     background-color: $main;
     border: 2px solid $primal;
@@ -190,6 +166,7 @@
 }
 
 .cities {
+  flex: 3;
   width: 85%;
   text-align: center;
   overflow-y: hidden;
@@ -201,7 +178,6 @@
   h2 {
     position: absolute;
     top: -20px;
-    //left: 10px;
     color: $primal;
   }
 
